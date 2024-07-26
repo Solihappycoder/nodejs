@@ -11,7 +11,7 @@
     "body-parser": "^1.20.2"
   },
   "engines": {
-    "node": "18.x"  // Specify the Node.js version you want Railway to use
+    "node": "18"
   },
   "author": "",
   "license": "MIT"
