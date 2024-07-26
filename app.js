@@ -1,21 +1,26 @@
 const express = require('express');
-const path = require('path');
-const indexRouter = require('./routes/index');
-
+const bodyParser = require('body-parser');
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-// Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
+let currentValue = false;
 
-// Use the router for handling routes
-app.use('/', indexRouter);
+app.use(bodyParser.json());
 
-// Catch-all route for handling 404 errors
-app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-  });
+app.get('/api/boolean', (req, res) => {
+    res.json({ value: currentValue });
+});
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+app.put('/update/boolean', (req, res) => {
+    if (typeof req.body.value === 'boolean') {
+        let newValue = req.body.value;
+        currentValue = newValue;
+        res.json({value: currentValue});
+    } else {
+        res.status(400).json({ error: 'Invalid value. Must be a boolean.' });
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
