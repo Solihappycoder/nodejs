@@ -4,6 +4,7 @@
   "description": "A simple API that returns and updates a boolean value.",
   "main": "server.js",
   "scripts": {
+    "start": "webpack-dev-server"
     "start": "node server.js"
   },
   "dependencies": {
